@@ -37,12 +37,13 @@ class MethodsHelper:
     def replace_mock_session_code(session_code):
         mocked_code = []
         first_line = session_code[0].split("=")
-        mocked_code.append(f"_ ={first_line[1]}")
+        mocked_code.append(f"_ ={first_line[1].lower()}")
 
         for line in session_code:
-            if ";" in line:
-                line = line.replace(";",".ReturnsForAnyArgs(expectedResult);")
-            mocked_code.append(line)
+            if "Session" not in line:
+                if ";" in line:
+                    line = line.replace(";",".ReturnsForAnyArgs(expectedResult);")
+                mocked_code.append(line)
         
         return mocked_code
     
