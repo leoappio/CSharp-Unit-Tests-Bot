@@ -46,7 +46,7 @@ class MethodsHelper:
         mocked_code.append(f"_ ={first_line[1].replace('Session','session')}")
 
         for line in session_code:
-            if "session" not in line:
+            if "Session" not in line:
                 if ";" in line:
                     line = line.replace(";",".ReturnsForAnyArgs(expectedResult);")
                 mocked_code.append(line)
