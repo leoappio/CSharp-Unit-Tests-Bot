@@ -1,5 +1,5 @@
 [TestMethod]
-public void None()
+public void LoadingShouldReturnBranch()
 {
     //Arrange
     var session = Substitute.For<ISession>();

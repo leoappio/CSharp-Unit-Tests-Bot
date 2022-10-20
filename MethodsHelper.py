@@ -1,4 +1,3 @@
-
 class MethodsHelper:
     def get_parameters_list(line):
         after_name = line.split("(")
@@ -72,6 +71,9 @@ class MethodsHelper:
                     test_name = first_part_name + "ting" + final_part_name + last_test_name_part
                 else:
                     test_name = first_part_name + "ing" + final_part_name + last_test_name_part
-                
-                return test_name        
+
+        if upper_counter == 1:
+            test_name = method_name + 'ing' + last_test_name_part
+      
+        return test_name
             
