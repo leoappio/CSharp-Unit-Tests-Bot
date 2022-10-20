@@ -50,6 +50,9 @@ class MethodsHelper:
                 if ";" in line:
                     line = line.replace(";",".ReturnsForAnyArgs(expectedResult);")
                 mocked_code.append(line)
+            
+            if len(session_code) == 1:
+                mocked_code[0] = mocked_code[0].replace(";",".ReturnsForAnyArgs(expectedResult);")
         
         return mocked_code
     

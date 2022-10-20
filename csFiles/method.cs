@@ -1,6 +1,6 @@
 public class BranchRepository{
-    public void Evict(Branch obj)
+    public Branch Load(long? branchId)
     {
-        Session.Evict(obj);   
+        return Session.Load<Branch>(branchId);   
     }
 }

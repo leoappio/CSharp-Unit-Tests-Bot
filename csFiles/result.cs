@@ -1,18 +1,22 @@
 [TestMethod]
-public void EvictingShouldBeExecutedSuccessfully()
+public void None()
 {
     //Arrange
     var session = Substitute.For<ISession>();
     var branchRepository = new BranchRepository(session);
 
-    var obj = new Branch();
+    var branchId = 22222;
+
+    var expectedResult = new Branch();
+
+    _ = session.Load<Branch>(branchId).ReturnsForAnyArgs(expectedResult);   
 
     //Act
-     var result = branchRepository.Evict(obj);
+     var result = branchRepository.Load(branchId);
 
     //Assert
     using (new AssertionScope())
     {
-        _ = session.Received().Evict(Arg.Any<Branch>());
+        _ = result.Should().BeEquivalentTo(expectedResult);
     }
 }
