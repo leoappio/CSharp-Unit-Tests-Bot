@@ -42,12 +42,13 @@ class TestMethodBuilder:
 
     def build_parameters_name_string(self):
         parameters_string =""
-        for parameter in self.parameters:
-            parameter_splitted = parameter.split(" ")
-            if len(parameters_string) == 0:
-                parameters_string = parameter_splitted[1]
-            else:
-                parameters_string += ", "+parameter_splitted[1]
+        if self.parameters[0] != "":
+            for parameter in self.parameters:
+                parameter_splitted = parameter.split(" ")
+                if len(parameters_string) == 0:
+                    parameters_string = parameter_splitted[1]
+                else:
+                    parameters_string += ", "+parameter_splitted[1]
         
         return parameters_string
 
@@ -86,13 +87,14 @@ class TestMethodBuilder:
     
 
     def add_parameters_lines(self):
-        for parameter in self.parameters:
-            type, name = parameter.split(" ")
-            self.write_variable_mock(type, name)
+        if self.parameters[0] != "":
+            for parameter in self.parameters:
+                type, name = parameter.split(" ")
+                self.write_variable_mock(type, name)
     
 
     def get_mock_default_value(self, line):
-        values = {"string":"\"AAA\"", "double": 1111, "int": 1111, "bool": "true"}
+        values = {"string":"\"AAA\"", "double": 1111, "int": 1111, "bool": "true", "long":22222}
 
         for key,value in values.items():
             if key in line:

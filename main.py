@@ -39,12 +39,12 @@ class Main:
                 self.method_return_type = MethodsHelper.get_return_type(line)
 
                 #getting test method name
-                if 'IEnumerable' in self.method_return_type:
+                if 'IEnumerable' in self.method_return_type or 'IList' in self.method_return_type:
                     self.test_method_name = MethodsHelper.get_test_method_name(self.method_name, "List")
                 else:
                     self.test_method_name = MethodsHelper.get_test_method_name(self.method_name, self.method_return_type)
    
-            if " = Session" in line:
+            if " = Session" in line or "return Session" in line:
                 #getting returns to mock
                 initial_session_index = self.lines.index(line)
                 self.mock_session = MethodsHelper.get_mocked_session_query(self.lines, initial_session_index)
