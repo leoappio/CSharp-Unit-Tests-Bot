@@ -15,9 +15,10 @@ class TestMethodBuilder:
         self.mock_session = mock_session
         self.parameters_name_string = self.build_parameters_name_string()
         self.tab = "    "
+        self.evict_parameter_type = ""
     
 
-    def build(self):
+    def build_query_test(self):
         self.erase_file()
         self.add_test_method_annotation()
         self.add_test_signature()
@@ -39,6 +40,32 @@ class TestMethodBuilder:
         self.close_curly_braces()
         self.file.close()
     
+
+    def build_evict_test(self):
+        self.erase_file()
+        self.add_test_method_annotation()
+        self.test_name = "EvictingShouldBeExecutedSuccessfully"
+        self.add_test_signature()
+        self.add_curly_braces()
+        self.add_arrange_comment()
+        self.add_substitutes_lines()
+        self.add_blank_line()
+        self.add_parameters_lines()
+        self.add_blank_line()
+        self.add_act_comment()
+        self.add_method_call_line()
+        self.add_blank_line()
+        self.add_assert_comment()
+        self.add_evict_assert()
+        self.close_curly_braces()
+        self.file.close()
+        
+    
+    def add_evict_assert(self):
+        self.file.write(f"{self.tab}using (new AssertionScope())\n")
+        self.file.write(f"{self.tab}""{""\n")
+        self.file.write(f"{self.tab}{self.tab}_ = session.Received().Evict(Arg.Any<{self.evict_parameter_type}>());\n")
+        self.file.write(f"{self.tab}""}""\n")
 
     def build_parameters_name_string(self):
         parameters_string =""
@@ -90,6 +117,7 @@ class TestMethodBuilder:
         if self.parameters[0] != "":
             for parameter in self.parameters:
                 type, name = parameter.split(" ")
+                self.evict_parameter_type = type
                 self.write_variable_mock(type, name)
     
 

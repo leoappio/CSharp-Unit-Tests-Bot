@@ -60,7 +60,11 @@ class Main:
             self.mock_session
         )
 
-        builder.build()
+        if self.method_name == "Evict":
+            builder.build_evict_test()
+        else:
+            builder.build_query_test()
+            
         self.file.close()
 
 

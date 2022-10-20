@@ -1,11 +1,6 @@
-public class InvoiceRepository{
-    public IEnumerable<PPidTeste> FindAllInvoiceNumber(IEnumerable<string> invoiceNumbers)
+public class BranchRepository{
+    public void Evict(Branch obj)
     {
-        var result = Session
-            .CreateSQLQuery(SqlQueries.FindAllInvoiceNumber)
-            .SetParameterList("pInvoiceNumbers", invoiceNumbers)
-            .List<PPidTeste>();
-
-        return result.ToList();
+        Session.Evict(obj);   
     }
 }
